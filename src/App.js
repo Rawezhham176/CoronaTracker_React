@@ -19,10 +19,12 @@ function App() {
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
-  const [casesType, setCasesType] = useState("");
-  const [mapCenter, setMapCenter] = useState([43, 0]);
-  const [mapZoom, setMapZoom] = useState(4);
+  const [center, setCenter] = useState({ lat: 43, lng: 0 });
+  const [zoom, setZoom] = useState(3);
+  const [mapPosition, setMapPosition] = useState(center);
+  const [mapZoom, setMapZoom] = useState(3);
   const [mapCountries, setMapCountries] = useState([]);
+  const [casesType, setCasesType] = useState("cases");
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -50,9 +52,8 @@ function App() {
     getCountriesData();
   }, [countries]);
 
-  const onCountryChange = async (event) => {
-    const countryCode = event.target.value;
-    console.log(countryCode);
+  const onCountryChange = async (e) => {
+    const countryCode = e.target.value;
 
     const url =
       countryCode === "worldwide"
@@ -64,65 +65,72 @@ function App() {
       .then((data) => {
         setCountry(countryCode);
         setCountryInfo(data);
-        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
-        setMapZoom(4);
+        setCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setZoom(9);
       });
   };
 
+  useEffect(() => {
+    setMapPosition(center);
+    setMapZoom(zoom);
+  }, [center, zoom]);
+
   return (
-    <div className="App">
-      <div className="app__left">
-        <div className="app__header">
-          <h1>Covid-19 Tracker</h1>
-          <FormControl
-            className="app__dropdown"
-            style={{ borderColor: "white" }}
-          >
-            <Select
-              variant="outlined"
-              value={country}
-              onChange={onCountryChange}
-              style={{ color: "white" }}
+    <>
+      <div className="App">
+        <div className="app__left">
+          <div className="app__header">
+            <h1>Covid-19 Tracker</h1>
+            <FormControl
+              className="app__dropdown"
+              style={{ borderColor: "white" }}
             >
-              <MenuItem value="worldwide">Worldwide</MenuItem>
-              {countries.map((country) => (
-                <MenuItem value={country.value}>{country.name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
+              <Select
+                variant="outlined"
+                value={country}
+                onChange={onCountryChange}
+                style={{ color: "white" }}
+              >
+                <MenuItem value="worldwide">Worldwide</MenuItem>
+                {countries.map((country) => (
+                  <MenuItem value={country.value}>{country.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
 
-        <div className="app__stats">
-          <InfoBox
-            title="Coronavirus cases"
-            total={countryInfo.cases}
-            cases={prettyPrintStat(countryInfo.todayCases)}
-            onClick={(e) => setCasesType("cases")}
-          />
-          <InfoBox
-            title="Recovered"
-            cases={prettyPrintStat(countryInfo.todayRecovered)}
-            total={countryInfo.recovered}
-            onClick={(e) => setCasesType("recovered")}
-          />
-          <InfoBox
-            title="Deaths"
-            cases={prettyPrintStat(countryInfo.todayDeaths)}
-            total={countryInfo.deaths}
-            onClick={(e) => setCasesType("deaths")}
-          />
-        </div>
+          <div className="app__stats">
+            <InfoBox
+              title="Coronavirus cases"
+              total={countryInfo.cases}
+              cases={prettyPrintStat(countryInfo.todayCases)}
+              onClick={(e) => setCasesType("cases")}
+            />
+            <InfoBox
+              title="Recovered"
+              cases={prettyPrintStat(countryInfo.todayRecovered)}
+              total={countryInfo.recovered}
+              onClick={(e) => setCasesType("recovered")}
+            />
+            <InfoBox
+              title="Deaths"
+              cases={prettyPrintStat(countryInfo.todayDeaths)}
+              total={countryInfo.deaths}
+              onClick={(e) => setCasesType("deaths")}
+            />
+          </div>
 
-        <Map center={mapCenter} zoom={mapZoom} countries={mapCountries} />
+          <Map position={mapPosition} zoom={mapZoom} countries={mapCountries} />
+        </div>
+        <Card className="app__right">
+          <CardContent>
+            <h3>Live cases by Country</h3>
+            <Table countries={tableData} />
+          </CardContent>
+        </Card>
       </div>
-      <Card className="app__right">
-        <CardContent>
-          <h3>Live cases by Country</h3>
-          <Table countries={tableData} />
-          <h3>Worldwide new cases</h3>
-        </CardContent>
-      </Card>
-    </div>
+      <LineGraph />
+    </>
   );
 }
 
