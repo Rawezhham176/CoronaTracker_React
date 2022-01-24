@@ -5,33 +5,8 @@
 body {
   background-color: rgb(46, 46, 46);
   color: white;
-  padding: 50px;
 }
 
 .App {
-  display: flex;
-  justify-content: space-evenly;
-  margin-bottom: 50px;
-}
-
-.app__header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  justify-content: space-between;
-}
-
-.app__stats {
-  display: flex;
-  justify-content: space-between;
-}
-
-.app__left {
-  flex: 0.8;
-}
-
-@media screen and (max-width: 700px) {
-  .App {
-    flex-direction: column;
-  }
+  padding: 50px;
 }
