@@ -13,7 +13,6 @@ import { prettyPrintStat, sortData } from "../util/util";
 import LineGraph from "../components/LineGraph";
 import "leaflet/dist/leaflet.css";
 import "../styles/Home.css";
-import { Link } from "react-router-dom";
 
 const Home = () => {
   const [countries, setCountries] = useState([]);
@@ -89,7 +88,7 @@ const Home = () => {
                 variant="outlined"
                 value={country}
                 onChange={onCountryChange}
-                style={{ color: "black" }}
+                style={{ color: "black", backgroundColor: "white" }}
               >
                 <MenuItem value="worldwide">Worldwide</MenuItem>
                 {countries.map((country) => (

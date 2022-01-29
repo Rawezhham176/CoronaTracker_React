@@ -1,0 +1,155 @@
+@media screen and (max-width: 1080px) {
+  .donation_from {
+    margin: 30% 20px 20% 20px !important;
+  }
+}
+
+.donation_from {
+  box-shadow: 0px 0px 9px 1px rgba(231, 231, 231, 0.1);
+  margin: 150px 20px 100px 20px;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  font-size: 60px;
+  font-weight: 900;
+  margin-bottom: 70px;
+}
+
+.customField textarea {
+  border: none;
+  appearance: none;
+  background: #f2f2f2;
+  width: 100%;
+  padding: 20px;
+  font-size: 15px;
+  overflow: scroll;
+  outline: none;
+  resize: none;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+.customField {
+  position: relative;
+  font-size: 14px;
+  border-top: 20px solid transparent;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  --field-padding: 12px;
+  --draw-duration: 0.1s;
+  --draw-color: #222;
+  --draw-line-width: 2px;
+  --draw-easing: linear;
+}
+
+form .submit {
+  border: none;
+  width: 100%;
+  margin-top: 50px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #0066ff;
+  color: white;
+  font-size: 15px;
+  transition: all 1s ease;
+  cursor: pointer;
+}
+
+form .submit:hover {
+  background-color: white;
+  border: 1px solid #0066ff;
+  color: #0066ff;
+}
+
+.customField input {
+  border: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #f2f2f2;
+  padding: var(--field-padding);
+  border-radius: 3px;
+  width: 100%;
+  outline: none;
+  font-size: 14px;
+}
+
+.customField .placeholder {
+  position: absolute;
+  left: 2%;
+  width: calc(100% - (var(--field-padding) * 2));
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  top: calc(50% + 0px);
+  line-height: 100%;
+  transform: translateY(-50%);
+  color: #aaa;
+  transition: top 0.3s ease, color 0.3s ease, font-size 0.3s ease;
+}
+
+.customField input.dirty + .placeholder,
+.customField input:focus + .placeholder,
+.customField input:not(:placeholder-shown) + .placeholder {
+  top: -10px;
+  font-size: 10px;
+  color: #0066ff;
+}
+
+.customField .errorMessage {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 12px;
+  background: #d30909;
+  color: #fff;
+  height: 24px;
+}
+
+.customField .errorMessage:empty {
+  opacity: 0;
+}
+
+.pay_hr {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.customFieldAmount {
+  width: 65%;
+}
+
+.customFieldAmount input {
+  padding: 20px;
+}
+
+.customFieldAmountBox {
+  margin: 0 auto;
+  width: 65%;
+  justify-content: center;
+  align-items: center;
+}
+
+.customFieldAmount input.dirty + .placeholder,
+.customFieldAmount input:focus + .placeholder,
+.customFieldAmount input:not(:placeholder-shown) + .placeholder {
+  top: -40px;
+  font-size: 15px;
+  color: #0066ff;
+}
+
+.customFieldAmount input {
+  font-size: 20px;
+}
+
+@media screen and (max-width: 450px) {
+  .header {
+    font-size: 40px;
+  }
+}
